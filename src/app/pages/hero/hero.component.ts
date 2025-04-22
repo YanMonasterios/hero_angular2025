@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   imports: [],
@@ -11,6 +11,18 @@ export class HeroComponent {
 
   name = signal('Ironman');
   age = signal(45);
+
+  // signal computada
+  heroDescription = computed(() =>
+  {
+    // logica que me permite regresar la descripcion 
+    const description = `${this.name()} - ${this.age()}`
+    return description;
+  });
+
+  capitalizedName = computed(() => 
+    this.name().toUpperCase()
+  );
 
   getHeroDescription() {
     return `${ this.name() } - ${ this.age() }`;
