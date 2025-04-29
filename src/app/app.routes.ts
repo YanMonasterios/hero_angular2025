@@ -10,6 +10,11 @@ export const routes: Routes = [
     {
       path: 'hero',
       component: HeroComponent
+    },
+    {
+      // si el usuario intenta modificar la ruta me llevara a la ruta principal.
+      path: '**',
+      redirectTo: ''
     }
 
 ];
