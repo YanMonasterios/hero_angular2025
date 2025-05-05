@@ -1,0 +1,33 @@
+<h1>DragonBall page</h1>
+<hr>
+
+
+<section class="row">
+
+    <div class="col-12 col-sm-6">
+
+        <h3>agregar:</h3>
+        <input type="text" class="form-control" placeholder="Nombre">
+        <input type="Number" class="form-control mt-2"  placeholder="Poder">
+
+        <button class="mt-2 btn btn-primary">
+            Agregar
+        </button>
+    </div>
+
+    <div class="col-12 col-sm-6">
+        <h3>Listado</h3>
+        <ul>
+            <!-- let idx = $index permite segun la documentacion enumerar la lista de arreglo  -->
+            @for (character of characters(); track character.id; let idx = $index) {
+                <li>
+                    <!-- idx + 1 porque el array empieza desde 0  -->
+                    <span> {{idx + 1}} - {{ character.name}} </span>
+                    <strong class="text-danger"> ({{ character.power}})</strong>
+                </li>
+            } 
+        </ul>
+
+    </div>
+
+</section>
