@@ -6,27 +6,52 @@
 
     <div class="col-12 col-sm-6">
 
-        <h3>agregar:</h3>
-        <input type="text" class="form-control" placeholder="Nombre">
-        <input type="Number" class="form-control mt-2"  placeholder="Poder">
+        <h3>agregar: {{name()}}</h3>
 
-        <button class="mt-2 btn btn-primary">
+        <!-- Se asigna el value del signal name para el input text  -->
+        <input type="text" 
+         class="form-control" placeholder="Nombre" [value]="name()"
+         (change)="name.set(txtName.value)"
+         #txtName>
+
+         <!-- el simbolo + hace la transformacion a tipo number -->
+        <input type="Number" 
+        class="form-control mt-2"  placeholder="Poder" [value]="power()"
+        (change)="power.set(+txtPower.value)"
+        #txtPower>
+
+        <button (click)="addCharacter()" class="mt-2 btn btn-primary">
             Agregar
         </button>
     </div>
 
     <div class="col-12 col-sm-6">
-        <h3>Listado</h3>
+        <h3>Listado Fuertes</h3>
         <ul>
             <!-- let idx = $index permite segun la documentacion enumerar la lista de arreglo  -->
             @for (character of characters(); track character.id; let idx = $index) {
-                <li>
-                    <!-- idx + 1 porque el array empieza desde 0  -->
-                    <span> {{idx + 1}} - {{ character.name}} </span>
-                    <strong class="text-danger"> ({{ character.power}})</strong>
-                </li>
-            } 
-        </ul>
+
+                <!-- si el poder de cada personaje es mayor a 500 muestralos -->
+                @if (character.power > 500) {
+
+                    <li>
+                        <!-- idx + 1 porque el array empieza desde 0  -->
+                        <span> {{idx + 1}} - {{ character.name}} </span>
+                        <!-- <strong class="text-danger"> ({{ character.power}})</strong> -->
+                         <strong 
+                                 [class.text-danger]="character.power > 9000"
+                                 [class.text-primary]="character.power < 9000"
+                                 > 
+                        <!-- <strong [ngClass]="powerClasses()"> -->
+                                 ({{ character.power}})
+                         </strong>
+                    </li>
+                } @else {
+                    <li><strong>Aqui no hay nadie</strong></li>
+                }
+            }
+
+            </ul>
 
     </div>
 
